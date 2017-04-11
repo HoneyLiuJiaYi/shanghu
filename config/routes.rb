@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'welcome/index'
+
   match 'product/new', :via => [:get, :post]
 
   post 'product/create'
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
   match 'register/create', :via => [:get, :post]
 
   match 'send/mail' => 'register#sendMail', :via => [:get, :post]
+
+  root :to => 'welcome#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

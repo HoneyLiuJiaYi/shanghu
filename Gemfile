@@ -55,3 +55,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bcrypt'
 
 gem 'uuidtools'
+
+gem 'qiniu', '~> 6.8.1'
+
+gem 'mime-types', '~> 2.4'
+
+gem 'tzinfo-data'

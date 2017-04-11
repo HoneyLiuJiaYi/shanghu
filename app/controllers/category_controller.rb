@@ -7,10 +7,12 @@ class CategoryController < ApplicationController
     @category = Category.new
     @category.name = params[:name]
     uploaded_io = params[:logo]
-    File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
-      file.write(uploaded_io.read)
-    end
-    @category.logo = Rails.root.join(uploaded_io.original_filename)
+    # File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
+    #   file.write(uploaded_io.read)
+    # end
+    @category.logo = uploaded_io.original_filename
+    #上传到七牛
+    Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
     if @category.save
       render :plain => '添加种类成功'
     else

@@ -1,12 +1,14 @@
-<%= form_for :login, :url => :login_create do |f| %>
+<form action="/login/create" method="post">
   <p>
-    <%= f.label :mail, '邮箱' %>
-    <%= f.text_field :mail %>
+  <h1>邮箱</h1>
+  <input type="text" name="mail"/>
+  </p>
+  <p>
+  <h1>密码</h1>
+  <input type="password" name="password"/>
   </p>
 
-    <p>
-      <%= f.label :password, '密码' %>
-      <%= f.password_field :password %>
-    </p>
-    <p><%= f.button "登录" %></p>
-<% end %>
+  <p>
+    <input type="submit" value="提交"/>
+  </p>
+</form>

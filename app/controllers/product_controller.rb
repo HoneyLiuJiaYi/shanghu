@@ -12,7 +12,7 @@ class ProductController < ApplicationController
     File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
       file.write(uploaded_io.read)
     end
-    @product.logo = uploaded_io.original_filename
+    @product.logo = Rails.root.join("picture", uploaded_io.original_filename)
     @category.products << @product
     if @product.save
       render :plain => '商品创建成功'
