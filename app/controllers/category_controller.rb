@@ -5,11 +5,11 @@ class CategoryController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    upload_io = params[:logo]
-    File.open(Rails.root.join(upload_io.original_filename), "wb") do |file|
-      file.write(upload_io.read)
+    uploaded_io = params[:logo]
+    File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
+      file.write(uploaded_io.read)
     end
-    @category.logo = Rails.root.join(upload_io.original_filename)
+    @category.logo = Rails.root.join(uploaded_io.original_filename)
     if @category
       render :plain => '添加种类成功'
     else
@@ -23,7 +23,7 @@ class CategoryController < ApplicationController
   end
 
   private
-  def catetory_params
+  def category_params
     params.permit(:name)
   end
 end
