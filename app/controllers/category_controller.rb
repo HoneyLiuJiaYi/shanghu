@@ -10,7 +10,7 @@ class CategoryController < ApplicationController
     # File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
     #   file.write(uploaded_io.read)
     # end
-    @category.logo = uploaded_io.original_filename
+    @category.logo = 'oo8xw7yv4.bkt.clouddn.com/' + uploaded_io.original_filename
     #上传到七牛
     Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
     if @category.save
