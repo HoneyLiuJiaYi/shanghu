@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
-  get 'category/new'
+  match 'product/new', :via => [:get, :post]
+
+  post 'product/create'
+
+  match 'category/new', :via => [:get, :post]
 
   post 'category/create'
 
   match 'show/categories' => 'category#showCategories', :via => [:get, :post]
 
-  get 'login' => 'login#new'
+  match 'login' => 'login#new', :via => [:get, :post]
 
   post 'login/create'
 
-  get  'register' => 'register#new'
+  match  'register' => 'register#new', :via => [:get, :post]
 
   match 'register/create', :via => [:get, :post]
 
