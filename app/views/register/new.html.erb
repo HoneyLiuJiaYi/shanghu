@@ -1,4 +1,4 @@
-<form action="/send/mail" method="post">
+<form action="/send/mail" method="post" enctype="multipart/form-data">
   <p>
     <h1>名字</h1>
     <input type="text" name="nick"/>
@@ -18,6 +18,10 @@
   <p>
     <h1>邮箱</h1>
     <input type="text" name="mail"/>
+  </p>
+  <p>
+    <h1>营业执照</h1>
+    <input type="file" name="license"/>
   </p>
   <p>
     <input type="submit" value="提交"/>

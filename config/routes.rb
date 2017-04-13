@@ -5,9 +5,15 @@ Rails.application.routes.draw do
 
   post 'product/create'
 
+  match 'show/products' => 'product#showAll', :via => [:get, :post]
+
+  match 'delete/product' => 'product#deleteProduct', :via => [:get, :post]
+
   match 'category/new', :via => [:get, :post]
 
   post 'category/create'
+
+  match 'delete/category' => 'category#deleteCategory', :via => [:get, :post]
 
   match 'show/categories' => 'category#showCategories', :via => [:get, :post]
 

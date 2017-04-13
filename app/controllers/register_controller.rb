@@ -7,8 +7,13 @@ class RegisterController < ApplicationController
 
   def sendMail
     @path = request.host_with_port.to_s
-    @s = Base64.encode64(params[:nick] + ';' + params[:password] + ';' + params[:mobile] + ';' + params[:mail] + ';' + (Time.now + 60 * 30).to_s )
-    # @s = "?nick=" + params[:nick] + "&password=" + params[:password] + "&mobile=" + params[:mobile] + "&mail=" + params[:mail]
+    if params[:license]
+      render :json => {:status => 1, :msg => 'no license'}
+    end
+    uploaded_io = params[:license]
+    Image.upload(params[:license].tempfile.path, uploaded_io.original_filename)
+    @license = 'oo8xw7yv4.bkt.clouddn.com/' + uploaded_io.original_filename
+    @s = Base64.encode64(params[:nick] + ';' + params[:password] + ';' + params[:mobile] + ';' + params[:mail] + ';' + (Time.now + 60 * 30).to_s + ';' + @license )
     puts @path
     begin
       MerchantMailer.send_mail(@s, params[:mail], @path).deliver
@@ -20,7 +25,7 @@ class RegisterController < ApplicationController
   def create
     @s = Base64.decode64(params[:msg]).split(';')
     @time = @s.at(4)
-    @merchant = Merchant.new(:nick => @s.at(0), :password => @s.at(1), :mobile => @s.at(2), :mail => @s.at(3))
+    @merchant = Merchant.new(:nick => @s.at(0), :password => @s.at(1), :mobile => @s.at(2), :mail => @s.at(3), :license => @s.at(5))
     if Time.now.inspect > @time
       render :plain => '超时'
     else

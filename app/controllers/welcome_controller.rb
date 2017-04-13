@@ -1,9 +1,9 @@
 class WelcomeController < ApplicationController
   def index
     if current_merchant
-      render :plain => '用户已经登录'
+      render :json => {:status => 0, :msg => 'yes'}
     else
-      render :plain => '用户没有登录'
+      render :json => {:status => 1, :msg => 'no'}
     end
   end
 end

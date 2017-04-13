@@ -21,4 +21,32 @@ class ProductController < ApplicationController
       render :plain => '商品创建失败'
     end
   end
+
+  def showAll
+    @category = Category.find(params[:category_id])
+    if @category
+      @products = Products.find_by :category_id => @category.id
+      if @products
+        render :json => {:status => 0, :msg => 'yes', :products => @products}
+      else
+        render :json => {:status => 2, :msg => "no this product"}
+      end
+    else
+      render :json => {:status => 1, :msg => 'no this category'}
+    end
+  end
+
+  def deleteProduct
+    @category = Category.find(params[:category_id])
+    if @category
+      @product = @category.products.find(params[:product_id])
+      if @product
+        render :json => {:status => 0, :msg => 'yes'}
+      else
+        render :json => {:status => 2, :msg => "no this product"}
+      end
+    else
+      render :json => {:status => 1, :msg => 'no this category'}
+    end
+  end
 end
