@@ -16,9 +16,9 @@ class ProductController < ApplicationController
     Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
     @category.products << @product
     if @product.save
-      render :plain => '商品创建成功'
+      render :json => {:status => 0, :msg => 'success'}
     else
-      render :plain => '商品创建失败'
+      render :json => {:status => 1, :msg => 'fail'}
     end
   end
 
@@ -27,7 +27,7 @@ class ProductController < ApplicationController
     if @category
       @products = Products.find_by :category_id => @category.id
       if @products
-        render :json => {:status => 0, :msg => 'yes', :products => @products}
+        render :json => {:status => 0, :msg => 'success', :products => @products}
       else
         render :json => {:status => 2, :msg => "no this product"}
       end
@@ -41,7 +41,7 @@ class ProductController < ApplicationController
     if @category
       @product = @category.products.find(params[:product_id])
       if @product
-        render :json => {:status => 0, :msg => 'yes'}
+        render :json => {:status => 0, :msg => 'success'}
       else
         render :json => {:status => 2, :msg => "no this product"}
       end

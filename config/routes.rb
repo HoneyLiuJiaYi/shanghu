@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   post 'login/create'
 
+  match 'logout' => 'login#destroy', :via => [:get, :post]
+
   match  'register' => 'register#new', :via => [:get, :post]
 
   match 'register/create', :via => [:get, :post]

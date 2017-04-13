@@ -7,15 +7,15 @@ class LoginController < ApplicationController
     merchant = Merchant.find_by_mail(merchant_params[:mail]).try(:authenticate, merchant_params[:password])
     if merchant
       session[:current_merchant_id] = merchant.id
-      render :plain => '登录成功'
+      render :json => {:status => 0, :msg => 'success'}
     else
-      render :plain => '登录失败'
+      render :json => {:status => 1, :msg => 'fail'}
     end
   end
 
   def destroy
     session[:current_merchant_id] = nil
-    render :plain => '成功推出'
+    render :json => {:status => 0, :msg => 'success'}
   end
 
   private

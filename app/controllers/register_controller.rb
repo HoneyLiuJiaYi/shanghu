@@ -17,8 +17,9 @@ class RegisterController < ApplicationController
     puts @path
     begin
       MerchantMailer.send_mail(@s, params[:mail], @path).deliver
+      render :json => {:status => 0, :msg => 'success'}
     rescue
-      render :plain => '邮箱出错'
+      render :json => {:status => 1, :msg => 'no this mail'}
     end
   end
 
@@ -27,12 +28,12 @@ class RegisterController < ApplicationController
     @time = @s.at(4)
     @merchant = Merchant.new(:nick => @s.at(0), :password => @s.at(1), :mobile => @s.at(2), :mail => @s.at(3), :license => @s.at(5))
     if Time.now.inspect > @time
-      render :plain => '超时'
+      render :json => {:status => 1, :msg => 'out time'}
     else
       if @merchant.save
-        render :plain => "创建成功"
+        render :json => {:status => 0, :msg => 'success'}
       else
-        render :plain => "创建失败"
+        render :json => {:status => 1, :msg => 'fail'}
       end
     end
   end

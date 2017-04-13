@@ -14,23 +14,27 @@ class CategoryController < ApplicationController
     #上传到七牛
     Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
     if @category.save
-      render :json => {:status => 0, :msg => 'yes'}
+      render :json => {:status => 0, :msg => 'success'}
     else
-      render :json => {:status => 1, :msg => 'no'}
+      render :json => {:status => 1, :msg => 'fail'}
     end
   end
 
   def showCategories
     @categories = Category.all
-    render :json => {:categories => @categories}
+    if @categories
+      render :json => {:status => 0, :msg => 'success',:categories => @categories}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
   end
 
   def deleteCategory
     @category = Category.find(params[:category_id])
     if @category.update_attributes!(:is_delete => 1)
-      render :json => {:status => 0, :msg => 'yes'}
+      render :json => {:status => 0, :msg => 'success'}
     else
-      render :json => {:status => 1, :msg => 'no'}
+      render :json => {:status => 1, :msg => 'fail'}
     end
   end
 
