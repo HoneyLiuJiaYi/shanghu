@@ -10,7 +10,7 @@ class ProductController < ApplicationController
     @product.name = params[:name]
     @product.price = params[:price]
     uploaded_io = params[:logo]
-    @product.logo = 'oo8xw7yv4.bkt.clouddn.com/' + uploaded_io.original_filename
+    @product.logo = 'http://oo8xw7yv4.bkt.clouddn.com/' + uploaded_io.original_filename
     Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
     @category.products << @product
     if @product.save
