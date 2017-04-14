@@ -61,3 +61,5 @@ gem 'qiniu', '~> 6.8.1'
 gem 'mime-types', '~> 2.4'
 
 gem 'tzinfo-data'
+
+gem 'rack-cors', :require => 'rack/cors'

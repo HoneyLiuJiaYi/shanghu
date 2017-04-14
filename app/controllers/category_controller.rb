@@ -7,9 +7,6 @@ class CategoryController < ApplicationController
     @category = Category.new
     @category.name = params[:name]
     uploaded_io = params[:logo]
-    # File.open(Rails.root.join("picture", uploaded_io.original_filename), "wb") do |file|
-    #   file.write(uploaded_io.read)
-    # end
     @category.logo = 'oo8xw7yv4.bkt.clouddn.com/' + uploaded_io.original_filename
     #上传到七牛
     Image.upload(params[:logo].tempfile.path, uploaded_io.original_filename)
@@ -23,7 +20,12 @@ class CategoryController < ApplicationController
   def showCategories
     @categories = Category.all
     if @categories
-      render :json => {:status => 0, :msg => 'success',:categories => @categories}
+      @callback = params[:callback]
+      h = Hash.new
+      h[:categories] = @categories
+      @a = @categories.to_json
+      @b = @callback + "(" + @a + ")"
+      render :plain => @b
     else
       render :json => {:status => 1, :msg => 'fail'}
     end

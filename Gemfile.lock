@@ -93,6 +93,7 @@ GEM
       rest-client (~> 2.0, >= 2.0.0)
       ruby-hmac (~> 0.4)
     rack (2.0.1)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.2)
@@ -185,6 +186,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.0)
   qiniu (~> 6.8.1)
+  rack-cors
   rails (~> 5.0.2)
   sass-rails (~> 5.0)
   spring
