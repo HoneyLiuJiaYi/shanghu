@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   post 'product/create'
 
-  match 'show/products' => 'product#showAll', :via => [:get, :post]
+  match '/show/products' => 'product#showAll', :via => [:get, :post]
+
+  match '/show/all/products' => 'product#showAllProducts', :via => [:get, :post]
 
   match 'delete/product' => 'product#deleteProduct', :via => [:get, :post]
 
@@ -29,7 +31,10 @@ Rails.application.routes.draw do
 
   match 'send/mail' => 'register#sendMail', :via => [:get, :post]
 
+  match 'product/query' => 'search#findProducts', :via => [:get, :post]
+
+  match 'fuck' => 'search#fuck', :via => [:get, :post]
+
   root :to => 'welcome#index'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

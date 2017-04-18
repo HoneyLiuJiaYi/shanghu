@@ -19,7 +19,7 @@ class CategoryController < ApplicationController
 
   def showCategories
     @merchant = Merchant.find(params[:merchant_id])
-    @categories = @merchant.categories
+    @categories = @merchant.categories.where(:is_delete => 0)
     if @categories
       render :json => {:status => 0, :msg => 'success', :categories => @categories}
     else

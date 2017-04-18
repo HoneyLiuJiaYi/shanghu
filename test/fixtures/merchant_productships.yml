@@ -2,8 +2,8 @@
 
 one:
   merchant_id: 1
-  category_id: 1
+  product_id: 1
 
 two:
   merchant_id: 1
-  category_id: 1
+  product_id: 1

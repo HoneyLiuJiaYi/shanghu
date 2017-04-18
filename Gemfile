@@ -63,3 +63,5 @@ gem 'mime-types', '~> 2.4'
 gem 'tzinfo-data'
 
 gem 'rack-cors', :require => 'rack/cors'
+
+gem 'ransack', github: 'activerecord-hackery/ransack'

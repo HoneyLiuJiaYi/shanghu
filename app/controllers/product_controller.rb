@@ -47,4 +47,14 @@ class ProductController < ApplicationController
       render :json => {:status => 1, :msg => 'no this category'}
     end
   end
+
+  def showAllProducts
+    @merchant = Merchant.find(params[:merchant_id])
+    @products = @merchant.products
+    if @products
+      render :json => {:status => 0, :msg => 'success', :data => @products}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
+  end
 end

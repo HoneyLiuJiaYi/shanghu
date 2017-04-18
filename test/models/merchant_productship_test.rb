@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MerchantCategoryshipTest < ActiveSupport::TestCase
+class MerchantProductshipTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
