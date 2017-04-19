@@ -31,10 +31,18 @@ Rails.application.routes.draw do
 
   match 'send/mail' => 'register#sendMail', :via => [:get, :post]
 
-  match 'product/query' => 'search#findProducts', :via => [:get, :post]
-
-  match 'fuck' => 'search#fuck', :via => [:get, :post]
+  match '/product/query' => 'search#findProducts', :via => [:get, :post]
 
   root :to => 'welcome#index'
+
+  #sprint1 round 2
+
+  match '/region/all' => 'station#getAllRegions', :via => [:get, :post]
+
+  match '/station/create' => 'station#createStation', :via => [:get, :post]
+
+  match '/station/destroy' => 'station#destroyStation', :via => [:get, :post]
+
+  match '/station/all' => 'station#showStation', :via => [:get, :post]
 
 end

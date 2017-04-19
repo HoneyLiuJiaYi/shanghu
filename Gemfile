@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org/'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -65,3 +65,11 @@ gem 'tzinfo-data'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
+
+gem 'redis'
+
+gem 'redis-namespace'
+
+gem 'redis-rails'
+
+gem 'redis-rack-cache'

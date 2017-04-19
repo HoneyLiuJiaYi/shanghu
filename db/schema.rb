@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414213138) do
+ActiveRecord::Schema.define(version: 20170418165254) do
+
+  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "name"
+    t.decimal  "lat",        precision: 10
+    t.decimal  "lng",        precision: 10
+    t.string   "comment"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "nick"
@@ -19,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170414213138) do
     t.datetime "created_at",      default: '2017-04-15 00:00:00', null: false
     t.datetime "updated_at",      default: '2017-04-15 00:00:00', null: false
     t.integer  "role_id"
+    t.integer  "region_id"
   end
 
   create_table "authorities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -83,6 +93,21 @@ ActiveRecord::Schema.define(version: 20170414213138) do
     t.float    "price",       limit: 24,                                 null: false
   end
 
+  create_table "regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rider_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.integer  "rider_id"
+    t.integer  "station_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "riders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "name"
     t.string   "password_digest",                                 null: false
@@ -95,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170414213138) do
     t.integer  "status",          default: 1,                     null: false
     t.string   "id_front"
     t.string   "id_back"
+    t.integer  "region_id"
   end
 
   create_table "role_authorityships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -110,6 +136,15 @@ ActiveRecord::Schema.define(version: 20170414213138) do
     t.text     "comment",    limit: 65535,                                 null: false
     t.datetime "created_at",               default: '2017-04-15 00:00:00', null: false
     t.datetime "updated_at",               default: '2017-04-15 00:00:00', null: false
+  end
+
+  create_table "stations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "name"
+    t.integer  "address_id"
+    t.integer  "region_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "merchant_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
