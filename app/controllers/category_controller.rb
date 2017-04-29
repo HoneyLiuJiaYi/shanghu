@@ -36,6 +36,15 @@ class CategoryController < ApplicationController
     end
   end
 
+  def showAllCategories
+    @categories = Category.all
+    if @categories
+      render :json => {:status => 0, :msg => 'success', :data => {:categories => @categories}}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
+  end
+
   private
   def category_params
     params.permit(:name)

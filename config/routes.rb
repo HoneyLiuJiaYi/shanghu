@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-
   match 'product/new', :via => [:get, :post]
 
   post 'product/create'
@@ -31,18 +29,33 @@ Rails.application.routes.draw do
 
   match 'send/mail' => 'register#sendMail', :via => [:get, :post]
 
-  match '/product/query' => 'search#findProducts', :via => [:get, :post]
-
-  root :to => 'welcome#index'
-
   #sprint1 round 2
-
   match '/region/all' => 'station#getAllRegions', :via => [:get, :post]
-
-  match '/station/create' => 'station#createStation', :via => [:get, :post]
 
   match '/station/destroy' => 'station#destroyStation', :via => [:get, :post]
 
-  match '/station/all' => 'station#showStation', :via => [:get, :post]
+  match '/station/show' => 'station#showStation', :via => [:get, :post]
 
+  match '/station/all' => 'station#showAllStation', :via => [:get, :post]
+
+  match '/station/first' => 'station#getFirstRegions', :via => [:get, :post]
+
+  match '/product/every' => 'product#showEveryProducts', :via => [:get, :post]
+
+  match '/category/all' => 'category#showAllCategories', :via => [:get, :post]
+
+  match '/station/bind' => 'station#bindMerchant', :via => [:get, :post]
+
+  #spirnt 1 2
+  match '/merchant/unproduct' => 'product#showUnProducts', :via => [:get, :post]
+
+  match '/merchant/product/bind' => 'product#bindMerchantProduct', :via => [:get, :post]
+
+  match '/merchant/product/unbind' => 'product#unbindMerchantProduct', :via => [:get, :post]
+
+  match '/product/price/show' => 'product#showPriceProduct', :via => [:get, :post]
+
+  match '/product/price/add' => 'product#addPriceProduct', :via => [:get, :post]
+
+  match '/product/price/remove' => 'product#removePriceProduct', :via => [:get, :post]
 end

@@ -1,5 +1,15 @@
 class StationController < ApplicationController
   skip_before_filter :verify_authenticity_token
+
+  def getFirstRegions
+    @regions = Region.where(:level => 1)
+    if @regions
+      render :json => {:status => 0, :msg => 'success', :data => {:regions => @regions}}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
+  end
+
   def getAllRegions
     @regions = Region.all
     if @regions
@@ -9,33 +19,10 @@ class StationController < ApplicationController
     end
   end
 
-  def createStation
-    @address = Address.where(:lat => params[:lat]).where(:lng => params[:lng])
-    if @address
-      render :json => {:status => 1, :msg => '站点已经存在'}
-    else
-      @address = Address.new(:lat => params[:lat], :lng => params[:lng], :comment => params[:comment])
-      if @address.save
-        @merchant = Merchant.find(params[:merchant_id])
-        @region = Region.find(params[:region_id])
-        @station = Station.new(:name => params[:name], :region => @region, :address => @address, :merchant => @merchant)
-        if @station.save
-          render :json => {:status => 0, :msg => 'success'}
-        else
-          render :json => {:status => 1, :msg => 'station 保存失败'}
-        end
-      else
-        render :json => {:status => 1, :msg => 'address 保存失败'}
-      end
-    end
-  end
-
   def destroyStation
     @station = Station.find(params[:station_id])
     if @station
-      @address = Address.find(@station.address_id)
-      @address.destroy
-      @station.destroy
+      @station.update_attributes(:status => 0);
       render :json => {:status => 0, :msg => 'success'}
     else
       render :json => {:status => 1, :msg => 'fail'}
@@ -43,9 +30,42 @@ class StationController < ApplicationController
   end
 
   def showStation
-    @stations = Station.find_by_merchant_id(params[:merchant_id])
+    if params[:query]
+      @stations = Station.where(:merchant_id => session[:current_merchant_id]).where(:is_del => 0).ransack(:name_cont => params[:query])
+    else
+      @stations = Station.where(:merchant_id => session[:current_merchant_id]).where(:is_del => 0)
+    end
     if @stations
-      render :json => {:status => 0, :msg => 'success', :data => {:stations => @stations}}
+      @arr = []
+      @stations.each do |station|
+        @arr << Address.find(station.address_id)
+      end
+      render :json => {:status => 0, :msg => 'success', :data => {:stations => @stations, :addresses => @arr}}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
+  end
+
+  def showAllStation
+    if params[:query]
+      @stations = Station.where(:status => 0).where(:is_del => 0).ransack(:name_cont => params[:query])
+    else
+      @stations = Station.where(:status => 0).where(:is_del => 0)
+    end
+    if @stations
+      render :json => {:status => 0, :msg => 'success', :data => {:stations=> @stations}}
+    else
+      render :json => {:status => 1, :msg => 'fail'}
+    end
+  end
+
+  def bindMerchant
+    if params[:station_id]
+      @merchant_id = session[:current_merchant_id]
+      @station = Station.find(params[:station_id])
+      @station.update_attributes(:merchant_id => @merchant_id)
+      @station.update_attributes(:status => 1)
+      render :json => {:status => 0, :msg => 'success'}
     else
       render :json => {:status => 1, :msg => 'fail'}
     end

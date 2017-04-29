@@ -10,71 +10,75 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418165254) do
+ActiveRecord::Schema.define(version: 20170423155820) do
 
-  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "name"
-    t.decimal  "lat",        precision: 10
-    t.decimal  "lng",        precision: 10
-    t.string   "comment"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name",                                             collation: "utf8_general_ci"
+    t.decimal  "lat",        precision: 10, scale: 6
+    t.decimal  "lng",        precision: 10, scale: 6
+    t.string   "comment",                                          collation: "utf8_general_ci"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
-  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "nick"
-    t.string   "password_digest"
-    t.integer  "is_del",          default: 0,                     null: false
-    t.datetime "created_at",      default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",      default: '2017-04-15 00:00:00', null: false
+  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "nick",                                     collation: "utf8_general_ci"
+    t.string   "password_digest",                          collation: "utf8_general_ci"
+    t.integer  "is_del",          default: 0, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "role_id"
     t.integer  "region_id"
   end
 
-  create_table "authorities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "is_del",                   default: 0,                     null: false
-    t.text     "comment",    limit: 65535,                                 null: false
-    t.datetime "created_at",               default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",               default: '2017-04-15 00:00:00', null: false
-  end
-
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
     t.string   "logo"
-    t.integer  "is_delete",  default: 0,                     null: false
-    t.datetime "created_at", default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at", default: '2017-04-15 00:00:00', null: false
+    t.integer  "is_delete",  default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  create_table "demos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
-    t.datetime "created_at", default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at", default: '2017-04-15 00:00:00', null: false
+    t.string   "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "merchant_categoryships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "merchant_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",  default: '2017-04-15 00:00:00', null: false
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.decimal  "price",      precision: 10
+    t.integer  "amount"
+    t.integer  "product_id"
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  create_table "merchant_productships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "merchant_productships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "merchant_id"
     t.integer  "product_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "merchant_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "mechant_id"
+    t.integer  "station_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "nick"
     t.string   "password_digest"
     t.string   "mobile"
     t.string   "mail"
-    t.datetime "created_at",      default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",      default: '2017-04-15 00:00:00', null: false
-    t.integer  "is_delete",       default: 0,                     null: false
-    t.integer  "status",          default: 1,                     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "is_delete",       default: 0, null: false
+    t.integer  "status",          default: 1, null: false
     t.string   "license"
     t.string   "comment"
     t.string   "logo"
@@ -83,78 +87,97 @@ ActiveRecord::Schema.define(version: 20170418165254) do
     t.string   "sex"
   end
 
-  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "name"
-    t.string   "logo"
-    t.integer  "is_delete",              default: 0,                     null: false
-    t.integer  "category_id"
-    t.datetime "created_at",             default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",             default: '2017-04-15 00:00:00', null: false
-    t.float    "price",       limit: 24,                                 null: false
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.decimal  "total_price", precision: 10
+    t.integer  "status"
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.integer  "rider_id"
+    t.integer  "merchant_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  create_table "regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
+    t.string   "logo"
+    t.integer  "is_delete",   default: 0, null: false
+    t.integer  "category_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name",                    collation: "utf8_general_ci"
     t.integer  "parent_id"
     t.integer  "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "rider_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "rider_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "rider_id"
     t.integer  "station_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "riders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "riders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
-    t.string   "password_digest",                                 null: false
-    t.string   "mobile",                                          null: false
+    t.string   "password_digest",             null: false
+    t.string   "mobile",                      null: false
     t.string   "sex"
     t.string   "license_num"
-    t.integer  "is_del",          default: 0,                     null: false
-    t.datetime "created_at",      default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",      default: '2017-04-15 00:00:00', null: false
-    t.integer  "status",          default: 1,                     null: false
+    t.integer  "is_del",          default: 0, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "status",          default: 1, null: false
     t.string   "id_front"
     t.string   "id_back"
     t.integer  "region_id"
   end
 
-  create_table "role_authorityships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "role_id"
-    t.integer  "authority_id"
-    t.datetime "created_at",   default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",   default: '2017-04-15 00:00:00', null: false
-  end
-
-  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nick"
-    t.integer  "is_del",                   default: 0,                     null: false
-    t.text     "comment",    limit: 65535,                                 null: false
-    t.datetime "created_at",               default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",               default: '2017-04-15 00:00:00', null: false
+    t.integer  "is_del",                   default: 0, null: false
+    t.text     "comment",    limit: 65535,             null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
-  create_table "stations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "stations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "address_id"
     t.integer  "region_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "merchant_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "is_del",     default: 0, null: false
+    t.integer  "status",     default: 0, null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.datetime "created_at",      default: '2017-04-15 00:00:00', null: false
-    t.datetime "updated_at",      default: '2017-04-15 00:00:00', null: false
-    t.string   "sex"
-    t.string   "mobile",                                          null: false
-    t.string   "is_del",          default: "0",                   null: false
+  create_table "user_adddressships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "address_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "useraddresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "user_id",                            collation: "latin1_swedish_ci"
+    t.string  "address",               null: false, collation: "latin1_swedish_ci"
+    t.string  "latitude",                           collation: "latin1_swedish_ci"
+    t.string  "longitude",                          collation: "latin1_swedish_ci"
+    t.integer "is_del",    default: 0, null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",                                       collation: "latin1_swedish_ci"
+    t.string   "password_digest",                            collation: "latin1_swedish_ci"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "sex",                                        collation: "latin1_swedish_ci"
+    t.string   "mobile",                        null: false, collation: "latin1_swedish_ci"
+    t.string   "is_del",          default: "0", null: false, collation: "latin1_swedish_ci"
   end
 
 end

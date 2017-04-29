@@ -13,7 +13,7 @@ default: &default
   adapter: mysql2
   encoding: utf8
   host: 180.76.141.171
-  database: jaguar
+  database: aabb
   pool: 5
   username: root
   password: xiangxi
