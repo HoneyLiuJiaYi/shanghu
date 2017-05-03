@@ -6,6 +6,6 @@ class Merchant < ApplicationRecord
   has_many :merchant_productships
   has_many :products, :through => :merchant_productships
 
-  has_many :orders
-  has_many :stations
+  has_many :merchant_stationships
+  has_many :stations, :through => :merchant_stationships
 end

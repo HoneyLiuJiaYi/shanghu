@@ -58,4 +58,9 @@ Rails.application.routes.draw do
   match '/product/price/add' => 'product#addPriceProduct', :via => [:get, :post]
 
   match '/product/price/remove' => 'product#removePriceProduct', :via => [:get, :post]
+
+  #sprint 1 2
+  match '/order/all' => 'order#getAllOrder', :via => [:get, :post]
+
+  match '/order/catch' => 'order#catchOrder', :via => [:get, :post]
 end
