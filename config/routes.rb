@@ -63,4 +63,8 @@ Rails.application.routes.draw do
   match '/order/all' => 'order#getAllOrder', :via => [:get, :post]
 
   match '/order/catch' => 'order#catchOrder', :via => [:get, :post]
+
+  match '/order/my' => 'order#myOrder', :via => [:get, :post]
+
+  match '/order/finsh' => 'order#washFinsh', :via => [:get, :post]
 end

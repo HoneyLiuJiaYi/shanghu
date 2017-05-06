@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423155820) do
+ActiveRecord::Schema.define(version: 20170503151831) do
 
   create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name",                                             collation: "utf8_general_ci"
@@ -32,15 +32,21 @@ ActiveRecord::Schema.define(version: 20170423155820) do
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name"
+    t.string   "name",                                collation: "utf8_general_ci"
     t.string   "logo"
     t.integer  "is_delete",  default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  create_table "cityprices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "city"
+    t.string  "product_id"
+    t.decimal "price",      precision: 10, scale: 6
+  end
+
   create_table "functions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name"
+    t.string   "name",                    collation: "utf8_general_ci"
     t.string   "index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,22 +62,31 @@ ActiveRecord::Schema.define(version: 20170423155820) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "merchant_orderships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "merchant_id"
+    t.integer  "order_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "is_del",      default: 0, null: false
+  end
+
   create_table "merchant_productships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "merchant_id"
     t.integer  "product_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.decimal  "price",       precision: 10, scale: 6
+  end
+
+  create_table "merchant_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "merchant_id"
+    t.integer  "station_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "merchant_stationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "mechant_id"
-    t.integer  "station_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "nick"
+    t.string   "nick",                                     collation: "utf8_general_ci"
     t.string   "password_digest"
     t.string   "mobile"
     t.string   "mail"
@@ -83,28 +98,41 @@ ActiveRecord::Schema.define(version: 20170423155820) do
     t.string   "comment"
     t.string   "logo"
     t.string   "card"
-    t.string   "rename"
+    t.string   "rename",                                   collation: "utf8_general_ci"
     t.string   "sex"
   end
 
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.decimal  "total_price", precision: 10
-    t.integer  "status"
-    t.integer  "user_id"
-    t.integer  "address_id"
-    t.integer  "rider_id"
-    t.integer  "merchant_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "user_id",                               collation: "latin1_swedish_ci"
+    t.string   "address_id",                            collation: "latin1_swedish_ci"
+    t.string   "price",                                 collation: "latin1_swedish_ci"
+    t.integer  "status",       default: 0, null: false
+    t.integer  "is_del",       default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "product_id",               null: false
+    t.integer  "product_nums"
+  end
+
+  create_table "orderstations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string  "station_id"
+    t.string  "order_id"
+    t.integer "is_del",     default: 0, null: false
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name"
+    t.string   "name",                                                          collation: "utf8_general_ci"
     t.string   "logo"
-    t.integer  "is_delete",   default: 0, null: false
+    t.integer  "is_delete",                            default: 0, null: false
     t.integer  "category_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.decimal  "price1",      precision: 10, scale: 6
+    t.decimal  "price2",      precision: 10, scale: 6
+    t.decimal  "price3",      precision: 10, scale: 6
+    t.decimal  "price4",      precision: 10, scale: 6
+    t.decimal  "price5",      precision: 10, scale: 6
+    t.decimal  "price6",      precision: 10, scale: 6
   end
 
   create_table "regions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -122,8 +150,16 @@ ActiveRecord::Schema.define(version: 20170423155820) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "riderorders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "rider_id"
+    t.string   "order_id"
+    t.integer  "is_del",     default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "riders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "name"
+    t.string   "name",                                     collation: "utf8_general_ci"
     t.string   "password_digest",             null: false
     t.string   "mobile",                      null: false
     t.string   "sex"
@@ -163,15 +199,17 @@ ActiveRecord::Schema.define(version: 20170423155820) do
   end
 
   create_table "useraddresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "user_id",                            collation: "latin1_swedish_ci"
-    t.string  "address",               null: false, collation: "latin1_swedish_ci"
-    t.string  "latitude",                           collation: "latin1_swedish_ci"
-    t.string  "longitude",                          collation: "latin1_swedish_ci"
-    t.integer "is_del",    default: 0, null: false
+    t.string  "user_id",                             collation: "latin1_swedish_ci"
+    t.string  "address",   default: "", null: false
+    t.string  "latitude",                            collation: "latin1_swedish_ci"
+    t.string  "longitude",                           collation: "latin1_swedish_ci"
+    t.integer "is_del",    default: 0,  null: false
+    t.string  "phone"
+    t.string  "remark"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",                                       collation: "latin1_swedish_ci"
+    t.string   "name"
     t.string   "password_digest",                            collation: "latin1_swedish_ci"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
