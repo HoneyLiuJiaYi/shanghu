@@ -80,4 +80,6 @@ Rails.application.routes.draw do
   #sprint 2 2
   match '/settlement/get' => 'settlement#getSettlement', :via => [:get, :post]
 
+  match '/download' => 'settlement#download', :via => [:get, :post]
+
 end

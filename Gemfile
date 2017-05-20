@@ -80,3 +80,4 @@ gem 'axlsx_rails'
 gem 'roo'
 
 gem 'mina'
+

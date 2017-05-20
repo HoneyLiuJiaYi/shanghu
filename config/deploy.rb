@@ -11,9 +11,11 @@ require 'mina/git'
 
 set :application_name, 'merchant'
 set :domain, '180.76.233.59'
-set :deploy_to, '/root/do'
-set :repository, 'git://...'
+set :deploy_to, '/root/shanghu'
+set :repository, 'git@github.com:HoneyLiuJiaYi/shanghu.git'
 set :branch, 'master'
+set :user, 'root'
+set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
@@ -33,8 +35,8 @@ task :environment do
 
   # For those using RVM, use this to load an RVM version@gemset.
   # invoke :'rvm:use', 'ruby-1.9.3-p125@default'
+  # invoke :'rvm:use'
 end
-
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
