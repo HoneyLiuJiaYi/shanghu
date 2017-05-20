@@ -67,4 +67,17 @@ Rails.application.routes.draw do
   match '/order/my' => 'order#myOrder', :via => [:get, :post]
 
   match '/order/finsh' => 'order#washFinsh', :via => [:get, :post]
+
+  #sprint 2 1
+  match '/user/all' => 'user#allUsers', :via => [:get, :post]
+
+  match '/user/input/money' => 'user#inputMoney', :via => [:get, :post]
+
+  match '/merchant/logs' => 'statistic#log', :via => [:get, :post]
+
+  match '/merchant/discount' => 'statistic#discount', :via => [:get, :post]
+
+  #sprint 2 2
+  match '/settlement/get' => 'settlement#getSettlement', :via => [:get, :post]
+
 end

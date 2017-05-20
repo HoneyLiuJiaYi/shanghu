@@ -66,7 +66,21 @@ class OrderController < ApplicationController
       ActiveRecord::Base.connection.execute 'delete from merchant_orderships where merchant_id=' + params[:merchant_id] + ' and order_id=' + params[:order_id]
       @order = Order.find(params[:order_id])
       @order.update_attribute(:status, 7)
-      render :json => {:status => 0, :msg => 'success'}
+      @ml = MerchantLog.new
+      @ml.user_id = @order.user_id
+      @ml.product_id = @order.product_id
+      @ml.money = MerchantProductship.where(:merchant_id => params[:merchant_id]).where(:product_id => @order.product_id).first.price * @order.product_nums
+      @ml.merchant_id = params[:merchant_id]
+      @mi = MerchantIncome.new
+      @mi.merchant_id = params[:merchant_id]
+      @mi.discount = @ml.money * @order.discount
+      @mi.price = @ml.money - @mi.discount
+      @mi.order_id = @order.id
+      if @ml.save && @mi.save
+        render :json => {:status => 0, :msg => 'success'}
+      else
+        render :json => {:status => 1, :msg => '账户录入异常'}
+      end
     else
       render :json => {:status => 1, :msg => 'fail'}
     end

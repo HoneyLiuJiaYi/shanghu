@@ -11,4 +11,7 @@ class Merchant < ApplicationRecord
 
   has_many :merchant_orderships
   has_many :orders, :through => :merchant_orderships
+
+  has_many :merchant_incomes
+  has_many :merchant_logs
 end

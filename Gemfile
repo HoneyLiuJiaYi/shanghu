@@ -73,3 +73,10 @@ gem 'redis-namespace'
 gem 'redis-rails'
 
 gem 'redis-rack-cache'
+
+gem 'axlsx'
+gem 'axlsx_rails'
+
+gem 'roo'
+
+gem 'mina'
