@@ -82,4 +82,7 @@ Rails.application.routes.draw do
 
   match '/download' => 'settlement#download', :via => [:get, :post]
 
+  #final
+  match '/withdraw' => 'settlement#withdraw', :via => [:get, :post]
+
 end

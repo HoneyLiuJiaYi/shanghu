@@ -35,6 +35,8 @@ class OrderController < ApplicationController
       @order = Order.find(params[:order_id])
       @merchant = Merchant.find(params[:merchant_id])
       if @order.update_attribute(:status, 5) && MerchantOrdership.create(:order => @order, :merchant => @merchant)
+        @mp = MerchantProductship.where(:merchant_id => params[:merchant_id]).where(:product_id => @order.product_id).first
+        @order.update_attribute(:merchant_price, @mp.price * @order.product_nums)
         render :json => {:status => 0, :msg => 'success'}
       else
         render :json => {:status => 1, :msg => 'fail to update'}
