@@ -26,7 +26,9 @@ class SettlementController < ApplicationController
           h[:time] = income.created_at
           h[:order_id] = income.order_id
           h[:is_settlement] = income.is_settlement
-          @prices = @prices + income.price
+          if income.is_settlement == 1
+            @prices = @prices + income.price
+          end
           file.write("  #{h[:price]}\t#{h[:product]}\t#{h[:category]}\t#{h[:product_num]}\t#{h[:time]}\n")
           @arr << h
         end
