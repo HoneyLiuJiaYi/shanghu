@@ -208,8 +208,13 @@
       <file leaf-file-name="settlement_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/settlement_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="391">
               <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+=======
+            <state relative-caret-position="138">
+              <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+>>>>>>> 83a28e79da7ee6b70fe6f7e2719d1ccbd6fc529a
               <folding />
             </state>
           </provider>
@@ -386,13 +391,20 @@
       <updated>1495461855421</updated>
       <workItem from="1495461863798" duration="638000" />
       <workItem from="1495468703684" duration="471000" />
+<<<<<<< HEAD
       <workItem from="1495717818325" duration="678000" />
       <workItem from="1495718967214" duration="8000" />
+=======
+>>>>>>> 83a28e79da7ee6b70fe6f7e2719d1ccbd6fc529a
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="1795000" />
+=======
+    <option name="totallyTimeSpent" value="1109000" />
+>>>>>>> 83a28e79da7ee6b70fe6f7e2719d1ccbd6fc529a
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="1" />
@@ -446,6 +458,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/settlement_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
@@ -472,6 +485,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+=======
+        <state relative-caret-position="138">
+          <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+>>>>>>> 83a28e79da7ee6b70fe6f7e2719d1ccbd6fc529a
           <folding />
         </state>
       </provider>
