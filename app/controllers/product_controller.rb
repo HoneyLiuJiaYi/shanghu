@@ -128,7 +128,7 @@ class ProductController < ApplicationController
   end
 
   def bindMerchantProduct
-    @mp = MerchantProductship.new(:merchant_id => params[:merchant_id], :product_id => params[:product_id], :price => params[:price])
+    @mp = SuggestPriceship.new(:merchant_id => params[:merchant_id], :product_id => params[:product_id], :price => params[:price])
     if @mp.save
       render :json => {:status => 0, :msg => 'success'}
     else
