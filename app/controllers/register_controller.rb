@@ -47,7 +47,7 @@ class RegisterController < ApplicationController
       render :json => {:status => 1, :msg => 'out time'}
     else
       if @merchant.save
-        render :json => {:status => 0, :msg => 'success'}
+        render "welcome/index"
       else
         render :json => {:status => 1, :msg => 'fail'}
       end
